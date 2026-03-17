@@ -3,8 +3,8 @@
 _realname=libbluray
 pkgbase=mingw-w64-${_realname}
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}"
-pkgver=1.4.0
-pkgrel=2
+pkgver=1.4.1
+pkgrel=1
 pkgdesc="Library to access Blu-Ray disks for video playback (mingw-w64)"
 arch=('any')
 mingw_arch=('mingw32' 'mingw64' 'ucrt64' 'clang64' 'clangarm64')
@@ -22,7 +22,7 @@ makedepends=(
   "${MINGW_PACKAGE_PREFIX}-cc")
 source=(https://download.videolan.org/pub/videolan/libbluray/${pkgver}/${_realname}-${pkgver}.tar.xz
         "meson-build.patch")
-sha256sums=('77937baf07eadda4b2b311cf3af4c50269d2ea3165041f5843d96476c4c92777'
+sha256sums=('76b5dc40097f28dca4ebb009c98ed51321b2927453f75cc72cf74acd09b9f449'
             '7ddfe27b50bf5c3e68c8433beb43323397a01ce1c0274df07be2ee03ee4319b5')
 options=('libtool' 'staticlibs')
 
