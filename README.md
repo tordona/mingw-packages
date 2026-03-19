@@ -1,3 +1,5 @@
+![MINGW PACKAGES PKGBUILD CI](https://github.com/tordona/mingw-packages/actions/workflows/build.yml/badge.svg)
+
 # MINGW-packages
 This repository contains modified package scripts for MinGW-w64 targets to build under MSYS2. These are specific to helping build statically linked [FFmpeg](https://www.ffmpeg.org/) binaries under MSYS2. 
 
@@ -7,6 +9,8 @@ Assuming you have a properly installed Windows MSYS2 environment and build tools
 ```
 ./configure --extra-libs='-static -lpthread' --pkg-config-flags='--static' --arch=aarch64 --enable-gpl --enable-version3 --enable-static --disable-shared --disable-debug --disable-w32threads --disable-autodetect --enable-libssh
 ```
+
+See more: [https://github.com/tordona/ffmpeg-win-arm64/blob/main/BUILDING.md](https://github.com/tordona/ffmpeg-win-arm64/blob/main/BUILDING.md)
 
 ## Errors
 **ERROR: libname_xyz not found using pkg-config**
