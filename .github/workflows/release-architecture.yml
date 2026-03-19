@@ -14,7 +14,7 @@ on:
         type: string
 jobs:
   release-architecture-packages:
-    if: ${{ github.event_name != 'pull_request' && github.ref_name == 'master' }}
+    # if: ${{ github.event_name != 'pull_request' && github.ref_name == 'master' }}
     name: '🚚 Release Architecture Packages'
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
@@ -41,6 +41,9 @@ jobs:
       uses: actions/download-artifact@v8
       with:
         path: release
+    - name: '📝 LIST Release Directory'
+      run: |
+        ls -laR
     - name: '🔍 Check Architecture Release Exists'
       id: check-architecture-release-exists
       uses: insightsengineering/release-existence-action@v1.0.0
@@ -80,18 +83,20 @@ jobs:
     - name: '📤 Upload to Existing Architecture Release'
       if: steps.check-architecture-release-exists.outputs.release-exists == 'true' 
       run: |
-          gh release upload "${{ inputs.arch }}" \
-            './release/${{ env.project_directory }}/mingw*.zst' \
-            './release/${{ env.project_directory }}/mingw*.sig' \
-            --clobber
+          ls -laR
+          # gh release upload "${{ inputs.arch }}" \
+          #   './release/${{ env.project_directory }}/mingw*.zst' \
+          #   './release/${{ env.project_directory }}/mingw*.sig' \
+          #   --clobber
       env:
         GITHUB_TOKEN: ${{ github.TOKEN }}
     - name: '🔨 Create New Architecture Package Release'
       if: steps.check-architecture-release-exists.outputs.release-exists == 'false' 
       run: |
-          gh release create "${{ inputs.arch }}" \
-            './release/${{ env.project_directory }}/mingw*.zst' \
-            './release/${{ env.project_directory }}/mingw*.sig' \
-            --title ${{ inputs.arch }} \
+          ls -laR
+          # gh release create "${{ inputs.arch }}" \
+          #   './release/${{ env.project_directory }}/mingw*.zst' \
+          #   './release/${{ env.project_directory }}/mingw*.sig' \
+          #   --title ${{ inputs.arch }} \
       env:
         GITHUB_TOKEN: ${{ github.TOKEN }}

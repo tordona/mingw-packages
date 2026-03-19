@@ -11,7 +11,7 @@ on:
         type: string
 jobs:
   release-separate-packages:
-    if: ${{ github.event_name != 'pull_request' && github.ref_name == 'master' }}
+    # if: ${{ github.event_name != 'pull_request' && github.ref_name == 'master' }}
     name: '🚚 Release Separate Packages'
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
@@ -40,6 +40,9 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           path: release
+      - name: '📝 LIST Release Directory'
+        run: |
+          ls -laR
       - name: '🔍 Check Package Release Exists'
         id: check-package-release-exists
         uses: insightsengineering/release-existence-action@v1.0.0
@@ -58,11 +61,12 @@ jobs:
       - name: '🔨 Create New Package Release'
         if: steps.check-package-release-exists.outputs.release-exists == 'false' 
         run: |
-            gh release create "${{ inputs.project }}" \
-              './release/${{ env.project_directory }}/mingw*.zst' \
-              './release/${{ env.project_directory }}/mingw*.sig' \
-              './release/${{ env.project_directory }}/mingw*.7z' \
-              --title ${{ inputs.project }} \
-              --notes 'Package Sources are in `*.src.7z`'
+            ls -laR
+            # gh release create "${{ inputs.project }}" \
+            #   './release/${{ env.project_directory }}/mingw*.zst' \
+            #   './release/${{ env.project_directory }}/mingw*.sig' \
+            #   './release/${{ env.project_directory }}/mingw*.7z' \
+            #   --title ${{ inputs.project }} \
+            #   --notes 'Package Sources are in `*.src.7z`'
         env:
           GITHUB_TOKEN: ${{ github.TOKEN }}
