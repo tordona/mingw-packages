@@ -1,5 +1,5 @@
 # Maintainer: Terence Ordona <terence.ordona@gmail.com>
-##
+###
 
 _realname=mpeghdec
 pkgbase=mingw-w64-${_realname}
