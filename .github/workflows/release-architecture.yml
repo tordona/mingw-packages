@@ -38,7 +38,7 @@ jobs:
         echo "project_directory=$directory" >> $GITHUB_ENV
         echo "env.project_directory: ${{ env.project_directory }}"
     - name: '📩 Download Artifacts'
-      uses: actions/download-artifact@v7
+      uses: actions/download-artifact@v8
       with:
         path: release
     - name: '🔍 Check Architecture Release Exists'
