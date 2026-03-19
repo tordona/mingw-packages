@@ -1,0 +1,9 @@
+--- CMakeLists.txt
++++ CMakeLists.txt.mod
+@@ -63,5 +63,5 @@
+ # Install
+ include(GNUInstallDirs)
+ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/mpeghdec.pc.in ${CMAKE_CURRENT_BINARY_DIR}/mpeghdec.pc @ONLY)
+-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/mpeghdec.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
++install(FILES ${CMAKE_CURRENT_BINARY_DIR}/mpeghdec.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+ 

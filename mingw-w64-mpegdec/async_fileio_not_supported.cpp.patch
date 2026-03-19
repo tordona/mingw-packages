@@ -1,0 +1,11 @@
+--- @BUILD_SYSTEM@/_deps/ilo-src/src/async_fileio_not_supported.cpp
++++ @BUILD_SYSTEM@/_deps/ilo-src/src/async_fileio_not_supported.cpp.mod
+@@ -90,6 +90,8 @@
+ #if defined(WIN32) || defined(_WIN32)
+ #include <io.h>
+ #include <wchar.h>
++#include <share.h>
++#include <sys/stat.h>
+ #else
+ #include <unistd.h>
+ #endif

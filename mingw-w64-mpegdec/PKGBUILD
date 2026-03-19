@@ -1,0 +1,61 @@
+_realname=mpeghdec
+pkgbase=mingw-w64-${_realname}
+pkgname=("${MINGW_PACKAGE_PREFIX}-${_realname}")
+pkgver=3.0.2
+pkgrel=1
+pkgdesc="The Fraunhofer MPEG-H decoder"
+arch=('any')
+mingw_arch=('ucrt64' 'clang64' 'clangarm64' 'mingw64')
+url='https://github.com/Fraunhofer-IIS/mpeghdec'
+license=('spdx:FDK-MPEG-H')
+makedepends=(
+  "${MINGW_PACKAGE_PREFIX}-cc"
+  "${MINGW_PACKAGE_PREFIX}-cmake"
+  "${MINGW_PACKAGE_PREFIX}-ninja"
+)
+source=("${url}/archive/r${pkgver}/${_realname}-r${pkgver}.tar.gz"
+        "async_fileio_not_supported.cpp.patch"
+        "CMakeLists.txt.patch"
+        "mpeghdec.pc.in.patch")
+sha256sums=('a2108be60a98ec2736b42edb2f5727f3cc22d49196f3802a981f242dd38f136c'
+            '2f38cdd09e7bbe719df449cfc4803341320fa30e3d3301cce8e84dbd8758b15e'
+            '6eac185e8163a94502f3f72d38f6567aedf385b91c7059ccb8be3736404652d1'
+            '28d507c70e450fd4e5a8f7884a1379f6fcaf55cd57445f6ba6648b152eaa00a6')
+
+prepare() {
+  sed -i "s/@BUILD_SYSTEM@/build-${MSYSTEM}/g" "async_fileio_not_supported.cpp.patch"
+  cd "${srcdir}"/${_realname}-r${pkgver}
+  patch -p0 -i "${srcdir}"/CMakeLists.txt.patch
+  patch -p0 -i "${srcdir}"/mpeghdec.pc.in.patch
+}
+
+build() { 
+  common_config=(
+    -GNinja
+    -DCMAKE_INSTALL_PREFIX="${MINGW_PREFIX}"
+    -DCMAKE_BUILD_TYPE=Release
+  )
+
+  mkdir -p "${srcdir}/build-${MSYSTEM}" && cd "${srcdir}/build-${MSYSTEM}"
+
+  MSYS2_ARG_CONV_EXCL="-DCMAKE_INSTALL_PREFIX=" \
+    cmake \
+      "${common_config[@]}" \
+      ../${_realname}-r${pkgver}
+    
+    cd "${srcdir}"
+    msg "Patching 'ilo' dependency..."
+    patch -p0 -i "${srcdir}"/async_fileio_not_supported.cpp.patch
+  
+    msg "Resuming build()..."
+    cd build-${MSYSTEM} && cmake --build .
+}
+
+package() {
+  cd "${srcdir}/build-${MSYSTEM}"
+
+  DESTDIR="${pkgdir}" cmake --install .
+
+  install -Dm644 "${srcdir}"/${_realname}-r${pkgver}/LICENSE.txt \
+    "${pkgdir}"${MINGW_PREFIX}/share/licenses/${_realname}/LICENSE
+}

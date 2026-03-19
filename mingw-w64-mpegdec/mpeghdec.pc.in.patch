@@ -1,0 +1,7 @@
+--- mpeghdec.pc.in
++++ mpeghdec.pc.in.mod
+@@ -8,3 +8,4 @@
+ Version: @PROJECT_VERSION@
+ Cflags: -I"${includedir}"
+ Libs: -L"${libdir}" -l@PROJECT_NAME@ -lm
++Cflags.private: -DMPEGHDEC_STATIC
