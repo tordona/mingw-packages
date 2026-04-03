@@ -4,7 +4,7 @@
 _realname=mpeghdec
 pkgbase=mingw-w64-${_realname}
 pkgname=("${MINGW_PACKAGE_PREFIX}-${_realname}")
-pkgver=3.0.2
+pkgver=3.0.3
 pkgrel=1
 pkgdesc="The Fraunhofer MPEG-H decoder"
 arch=('any')
@@ -20,7 +20,7 @@ source=("${url}/archive/r${pkgver}/${_realname}-r${pkgver}.tar.gz"
         "async_fileio_not_supported.cpp.patch"
         "CMakeLists.txt.patch"
         "mpeghdec.pc.in.patch")
-sha256sums=('a2108be60a98ec2736b42edb2f5727f3cc22d49196f3802a981f242dd38f136c'
+sha256sums=('0198ebc824332926c0c39abf216df65606da896a4204c93be77b1581b5bf0b73'
             '5aa0c0b2b3599cdf6a719ad51097b8ec4380592df523d2b625a1eedf5c977cee'
             '6eac185e8163a94502f3f72d38f6567aedf385b91c7059ccb8be3736404652d1'
             '3ef3d11634aa7cdf245f9cf9f3db2f5100d4555b309f88bef32d1290efe4cdb3')
