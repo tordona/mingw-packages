@@ -57,7 +57,7 @@ jobs:
         shopt -s extglob
         declare -a asset_list
         regex="^(.*)-[0-9]+[.~]"
-        directory="./release/*"
+        directory="./release/${{ env.project_directory }}/*"
         for file in $directory; do
           filename=$(basename "${file}")
           if [[ -f "$file" && "$filename" =~ $regex ]]; then
@@ -85,8 +85,8 @@ jobs:
       if: steps.check-architecture-release-exists.outputs.release-exists == 'true' 
       run: |
           gh release upload "${{ inputs.arch }}" \
-            './release/mingw*.zst' \
-            './release/mingw*.sig' \
+            './release/${{ env.project_directory }}/mingw*.zst' \
+            './release/${{ env.project_directory }}/mingw*.sig' \
             --clobber
       env:
         GITHUB_TOKEN: ${{ github.TOKEN }}
@@ -94,8 +94,8 @@ jobs:
       if: steps.check-architecture-release-exists.outputs.release-exists == 'false' 
       run: |
           gh release create "${{ inputs.arch }}" \
-            './release/mingw*.zst' \
-            './release/mingw*.sig' \
+            './release/${{ env.project_directory }}/mingw*.zst' \
+            './release/${{ env.project_directory }}/mingw*.sig' \
             --title ${{ inputs.arch }} \
       env:
         GITHUB_TOKEN: ${{ github.TOKEN }}
