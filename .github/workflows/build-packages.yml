@@ -94,7 +94,7 @@ jobs:
         ls -la
         7z a $filename-$version-any.pkg.src.7z * -x!mingw*.zst -x!mingw*.sig -x!*/
     - name: '📤 Upload artifact: package'
-      uses: actions/upload-artifact@v7
+      uses: actions/upload-artifact@v6
       with: 
         name: ${{ env.project_directory }}
         path: |
