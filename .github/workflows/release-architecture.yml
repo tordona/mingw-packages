@@ -41,6 +41,7 @@ jobs:
       uses: actions/download-artifact@v8
       with:
         path: release
+        merge-multiple: true
     - name: '📝 List Release Directory'
       working-directory: ./release
       run: |
@@ -57,7 +58,7 @@ jobs:
         shopt -s extglob
         declare -a asset_list
         regex="^(.*)-[0-9]+[.~]"
-        directory="./release/${{ env.project_directory }}/*"
+        directory="./release/*"
         for file in $directory; do
           filename=$(basename "${file}")
           if [[ -f "$file" && "$filename" =~ $regex ]]; then
@@ -85,8 +86,8 @@ jobs:
       if: steps.check-architecture-release-exists.outputs.release-exists == 'true' 
       run: |
           gh release upload "${{ inputs.arch }}" \
-            './release/${{ env.project_directory }}/mingw*.zst' \
-            './release/${{ env.project_directory }}/mingw*.sig' \
+            './release/mingw*.zst' \
+            './release/mingw*.sig' \
             --clobber
       env:
         GITHUB_TOKEN: ${{ github.TOKEN }}
@@ -94,8 +95,8 @@ jobs:
       if: steps.check-architecture-release-exists.outputs.release-exists == 'false' 
       run: |
           gh release create "${{ inputs.arch }}" \
-            './release/${{ env.project_directory }}/mingw*.zst' \
-            './release/${{ env.project_directory }}/mingw*.sig' \
+            './release/mingw*.zst' \
+            './release/mingw*.sig' \
             --title ${{ inputs.arch }} \
       env:
         GITHUB_TOKEN: ${{ github.TOKEN }}

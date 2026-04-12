@@ -40,6 +40,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           path: release
+          merge-multiple: true
       - name: '🔍 Check Package Release Exists'
         id: check-package-release-exists
         uses: insightsengineering/release-existence-action@v1.0.0
@@ -53,9 +54,9 @@ jobs:
         if: steps.check-package-release-exists.outputs.release-exists == 'true' 
         run: |
             gh release upload "${{ inputs.project }}" \
-              './release/${{ env.project_directory }}/mingw*.zst' \
-              './release/${{ env.project_directory }}/mingw*.sig' \
-              './release/${{ env.project_directory }}/mingw*.7z' \
+              './release/mingw*.zst' \
+              './release/mingw*.sig' \
+              './release/mingw*.7z' \
               --clobber
         env:
           GITHUB_TOKEN: ${{ github.TOKEN }}
@@ -63,9 +64,9 @@ jobs:
         if: steps.check-package-release-exists.outputs.release-exists == 'false' 
         run: |
             gh release create "${{ inputs.project }}" \
-              './release/${{ env.project_directory }}/mingw*.zst' \
-              './release/${{ env.project_directory }}/mingw*.sig' \
-              './release/${{ env.project_directory }}/mingw*.7z' \
+              './release/mingw*.zst' \
+              './release/mingw*.sig' \
+              './release/mingw*.7z' \
               --title ${{ inputs.project }} \
               --notes 'Package Sources are in `*.src.7z`'
         env:
