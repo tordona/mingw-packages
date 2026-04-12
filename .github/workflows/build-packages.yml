@@ -97,7 +97,4 @@ jobs:
       uses: actions/upload-artifact@v6
       with: 
         name: ${{ env.project_directory }}
-        path: |
-          ./${{ inputs.project }}/mingw*.zst
-          ./${{ inputs.project }}/mingw*.zst.sig
-          ./${{ inputs.project }}/mingw*.src.7z
+        path: ./${{ inputs.project }}/
