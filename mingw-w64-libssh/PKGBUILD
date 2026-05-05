@@ -3,7 +3,7 @@
 _realname=libssh
 pkgbase=mingw-w64-${_realname}
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}"
-pkgver=0.12.0
+pkgver=0.11.3
 pkgrel=2
 pkgdesc="Library for accessing ssh client services through C libraries (mingw-w64)"
 arch=('any')
@@ -25,7 +25,7 @@ depends=("${MINGW_PACKAGE_PREFIX}-openssl"
 checkdepends=("${MINGW_PACKAGE_PREFIX}-cmocka")
 source=("https://www.libssh.org/files/${pkgver%.*}/${_realname}-${pkgver}.tar.xz"{,.asc}
          "libssh.pc.cmake.patch")
-sha256sums=('1a6af424d8327e5eedef4e5fe7f5b924226dd617ac9f3de80f217d82a36a7121'
+sha256sums=('7d8a1361bb094ec3f511964e78a5a4dba689b5986e112afabe4f4d0d6c6125c3'
             'SKIP'
             '127bf06b4f8194fee2be79a37e0193e491ee0394c17a9d5feb207734ddd0e268')
 validpgpkeys=('8DFF53E18F2ABC8D8F3C92237EE0FC4DCC014E3D'  # Andreas Schneider <asn@cryptomilk.org>
@@ -49,7 +49,6 @@ build() {
     -DWITH_SERVER=OFF
     -DWITH_SFTP=ON
     -DWITH_ZLIB=ON 
-    -DHAVE_STRNDUP=YES
   )
 
   MSYS2_ARG_CONV_EXCL="-DCMAKE_INSTALL_PREFIX=" \
