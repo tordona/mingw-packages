@@ -43,7 +43,7 @@ jobs:
         uses: tchupp/actions-detect-directory-changes@v1
         with:
           included-paths: "./ming**"
-          if-these-paths-change-return-all-included-paths: "./.github/**"
+          # if-these-paths-change-return-all-included-paths: "./.github/**"
   build-packages:
     if: needs.detect-directory-changes.outputs.changed != '[]'
     name: '👷 Build Packages (PKGBUILD)'
