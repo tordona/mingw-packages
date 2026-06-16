@@ -41,7 +41,7 @@ jobs:
       uses: actions/download-artifact@v8
       with:
         path: release
-        merge-multiple: true
+        merge-multiple: false
     - name: '📝 List Release Directory'
       working-directory: ./release
       run: |
