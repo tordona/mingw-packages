@@ -40,7 +40,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           path: release
-          name: ${{ env.project_directory }}"
+          name: ${{ env.project_directory }}
       - name: '🔍 Check Package Release Exists'
         id: check-package-release-exists
         uses: insightsengineering/release-existence-action@v1.0.0

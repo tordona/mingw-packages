@@ -58,7 +58,7 @@ jobs:
         shopt -s extglob
         declare -a asset_list
         regex="^(.*)-[0-9]+[.~]"
-        directory="./release/${{ env.project_directory }}*"
+        directory="./release/${{ env.project_directory }}/*"
         for file in $directory; do
           filename=$(basename "${file}")
           if [[ -f "$file" && "$filename" =~ $regex ]]; then
