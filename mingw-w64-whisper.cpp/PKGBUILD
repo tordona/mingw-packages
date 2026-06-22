@@ -30,8 +30,8 @@ _commit=5ed76e9a079962f1c85cfce44edd325c27ef1f97
 source=("git+https://github.com/ggml-org/whisper.cpp#commit=${_commit}"
 #source=("https://github.com/ggml-org/whisper.cpp/archive/v${pkgver}/${_realname}-${pkgver}.tar.gz"
         "whisper.pc.in.patch")
-sha256sums=('8a263f5b8e7cb3515f9984bdc11e939439e0c5fcc21f431753a09c2e8f0f15c2'
-            '05540674a90b3b7c9c7ae8a65a574331dee41211c5c7fc83df174dadc83a64db')
+sha256sums=('05540674a90b3b7c9c7ae8a65a574331dee41211c5c7fc83df174dadc83a64db'
+            '96efa2431d71114f5928ab04c6d048a8814f5dd54713914e8e98adcac25ac844')
 
 pkgver() {
   cd "${srcdir}"/${_realname}-${pkgver}
