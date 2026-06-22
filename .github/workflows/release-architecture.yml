@@ -58,8 +58,11 @@ jobs:
         shopt -s extglob
         declare -a asset_list
         regex="^(.*)-[0-9]+[.~]"
-        directory="./release/${{ env.project_directory }}/*"
-        for file in $directory; do
+        path="./release/*"
+        if [ -d "./release/${{ env.project_directory }}" ]; then
+          path="./release/${{ env.project_directory }}/*"
+        fi
+        for file in $path; do
           filename=$(basename "${file}")
           if [[ -f "$file" && "$filename" =~ $regex ]]; then
             asset_list+=("${BASH_REMATCH[1]}*.${filename##*.}")
