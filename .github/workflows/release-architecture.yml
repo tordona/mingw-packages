@@ -88,18 +88,26 @@ jobs:
     - name: '📤 Upload to Existing Architecture Release'
       if: steps.check-architecture-release-exists.outputs.release-exists == 'true' 
       run: |
-          gh release upload "${{ inputs.arch }}" \
-            './release/${{ env.project_directory }}/mingw*.zst' \
-            './release/${{ env.project_directory }}/mingw*.sig' \
-            --clobber
+        path="./release"
+        if [ -d "./release/${{ env.project_directory }}" ]; then
+          path="./release/${{ env.project_directory }}"
+        fi
+        gh release upload "${{ inputs.arch }}" \
+          '$path/mingw*.zst' \
+          '$path/mingw*.sig' \
+          --clobber
       env:
         GITHUB_TOKEN: ${{ github.TOKEN }}
     - name: '🔨 Create New Architecture Package Release'
       if: steps.check-architecture-release-exists.outputs.release-exists == 'false' 
       run: |
-          gh release create "${{ inputs.arch }}" \
-            './release/${{ env.project_directory }}/mingw*.zst' \
-            './release/${{ env.project_directory }}/mingw*.sig' \
-            --title ${{ inputs.arch }} \
+        path="./release"
+        if [ -d "./release/${{ env.project_directory }}" ]; then
+          path="./release/${{ env.project_directory }}"
+        fi
+        gh release create "${{ inputs.arch }}" \
+          '$path/mingw*.zst' \
+          '$path/mingw*.sig' \
+          --title ${{ inputs.arch }}
       env:
         GITHUB_TOKEN: ${{ github.TOKEN }}
