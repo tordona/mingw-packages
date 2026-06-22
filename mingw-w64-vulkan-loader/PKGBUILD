@@ -1,6 +1,6 @@
 # Maintainer: J. Peter Mugaas <jpmugaas@suddenlink.net>
 # Contributor: wirx6 <wirx654@gmail.com>
-
+# 
 _realname=Vulkan-Loader
 pkgbase=mingw-w64-vulkan-loader
 pkgname=("${MINGW_PACKAGE_PREFIX}-vulkan-loader")
