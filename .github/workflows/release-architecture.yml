@@ -93,8 +93,8 @@ jobs:
           path="./release/${{ env.project_directory }}"
         fi
         gh release upload "${{ inputs.arch }}" \
-          '$path/mingw*.zst' \
-          '$path/mingw*.sig' \
+          "$path/mingw*.zst" \
+          "$path/mingw*.sig" \
           --clobber
       env:
         GITHUB_TOKEN: ${{ github.TOKEN }}
@@ -106,8 +106,8 @@ jobs:
           path="./release/${{ env.project_directory }}"
         fi
         gh release create "${{ inputs.arch }}" \
-          '$path/mingw*.zst' \
-          '$path/mingw*.sig' \
+          "$path/mingw*.zst" \
+          "$path/mingw*.sig" \
           --title ${{ inputs.arch }}
       env:
         GITHUB_TOKEN: ${{ github.TOKEN }}
