@@ -3,11 +3,12 @@
 _realname=openal
 pkgbase=mingw-w64-${_realname}
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}"
-pkgver=1.25.1
-pkgrel=3
+pkgver=1.25.2
+pkgrel=1
 pkgdesc="OpenAL audio library for use with opengl (mingw-w64)"
 arch=('any')
 mingw_arch=('mingw32' 'mingw64' 'ucrt64' 'clang64' 'clangarm64')
+msys2_repository_url='https://github.com/kcat/openal-soft'
 url="https://github.com/kcat/openal-soft"
 license=('spdx:GPL-2.0-or-later')
 depends=("${MINGW_PACKAGE_PREFIX}-libmysofa")
@@ -16,14 +17,14 @@ makedepends=("${MINGW_PACKAGE_PREFIX}-cc"
              "${MINGW_PACKAGE_PREFIX}-ninja"
              "${MINGW_PACKAGE_PREFIX}-fluidsynth"
              "${MINGW_PACKAGE_PREFIX}-portaudio")
-source=(https://github.com/kcat/openal-soft/archive/${pkgver}/${_realname}-${pkgver}.tar.gz
-        0001-dll-name.patch
-        0004-pkgconfig-add-Cflags-private.patch
-        0005-mingw-dont-check-libm.patch)
-sha256sums=('5f8efe8dfba5e9307a50251ba615ace857c7fa9dddfe34130b83e213d7f7cf24'
-            '73ef9363afa330074097178ab0d8b64943639e52f1c65435bafafc4de3719659'
+source=("https://github.com/kcat/openal-soft/archive/${pkgver}/${_realname}-${pkgver}.tar.gz"
+        '0001-dll-name.patch'
+        '0004-pkgconfig-add-Cflags-private.patch'
+        '0005-mingw-dont-check-libm.patch')
+sha256sums=('fb27e5839aa11f0e5b9d33756965291fad5d6909ab928ea1f796f4a1a6877894'
+            'fda6cd11b16dadb6eb391b0854c8694938cb722b2df49fd65e0575af99344a14'
             '79d8829e226ef365999e3d532815e2e439770924256d4c942c4959b93a5fc566'
-            'c2528ecc034ea993cb63893b3f2ce5ceeac8d63295decf6864f58cd646c74299')
+            '6b1fa164c4d515dae069a1fcee226a555969b1b981379648ac4e11c742493512')
 
 # Helper macros to help make tasks easier #
 apply_patch_with_msg() {
@@ -72,6 +73,12 @@ build() {
     -DLIBTYPE=STATIC \
     ../openal-soft-${pkgver}
   ${MINGW_PREFIX}/bin/cmake.exe --build ./
+}
+
+check() {
+  cmake -DALSOFT_TESTS=ON -S ${_realname}-soft-${pkgver} -B build-shared-${MSYSTEM}
+  cmake --build build-shared-${MSYSTEM}
+  ctest --test-dir build-shared-${MSYSTEM} --output-on-failure || true
 }
 
 package() {
