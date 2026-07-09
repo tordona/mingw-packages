@@ -1,10 +1,10 @@
---- @PACKAGE@/lib/jxl/libjxl.pc.in	2024-11-26 08:02:35.000000000 -0500
-+++ @PACKAGE@/lib/jxl/libjxl.pc.in.mod	2025-10-12 16:39:42.293007400 -0400
+--- @PACKAGE@/lib/jxl/libjxl.pc.in
++++ @PACKAGE@/lib/jxl/libjxl.pc.in.mod
 @@ -8,6 +8,6 @@
  Version: @JPEGXL_LIBRARY_VERSION@
  @JPEGXL_REQUIRES_TYPE@: @JPEGXL_LIBRARY_REQUIRES@
- Libs: -L${libdir} -ljxl @JPEGXL_PUBLIC_LIBS@
+ Libs: -L${libdir} -l@JPEGXL_LIBRARY_MAIN@ @JPEGXL_PUBLIC_LIBS@
 -Libs.private: @JPEGXL_PRIVATE_LIBS@
-+Libs.private: @JPEGXL_PRIVATE_LIBS@ -lstdc++ -ladvapi32
++Libs.private: @JPEGXL_PRIVATE_LIBS@  -lstdc++ -ladvapi32
  Cflags: -I${includedir}
  Cflags.private: -DJXL_STATIC_DEFINE

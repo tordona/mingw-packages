@@ -35,7 +35,7 @@ source=("https://github.com/libjxl/libjxl/archive/v${pkgver}/${_realname}-${pkgv
         "libjxl.pc.in.patch"
         "libjxl_threads.pc.in.patch")
 sha256sums=('03e9be69a30be4011f559da75328b6d7cea8ad921fabfbd551ce10bf45cdc992'
-            'b68280647049e9cfc2a5d276ad3b2d6474b6c24781ff5331fa5a5006e810e711'
+            '1d2fa7826d13ee3ffa6648b5b00b23a1d603b597a7b1bd1ecfbc38fb6460e932'
             '4eb5473eb1c7b9781dd1fcd8ae5083dc596fc10dbc1b4d9f7139fd5a3bdc1f1b')
 noextract=("${_realname}-${pkgver}.tar.gz")
 options=('libtool' 'staticlibs')
