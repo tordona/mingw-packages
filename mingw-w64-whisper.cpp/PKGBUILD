@@ -4,7 +4,7 @@ _realname=whisper.cpp
 pkgbase=mingw-w64-${_realname}
 pkgname=("${MINGW_PACKAGE_PREFIX}-${_realname}")
 epoch=1
-pkgver=1.9.1.r75.g0ae02cdb2
+pkgver=1.9.1.r154.g080bbbe85
 pkgrel=1
 pkgdesc="Port of OpenAI's Whisper model in C/C++ (mingw-w64)"
 arch=('any')
@@ -26,11 +26,11 @@ makedepends=(
   "${MINGW_PACKAGE_PREFIX}-spirv-headers"
   #"git"
 )
-_commit=0ae02cdb2c7317b50991367c165736ce42ed96ac
+_commit=080bbbe85230f624f0b52127f1ae1218247989f9
 source=("git+https://github.com/ggml-org/whisper.cpp#commit=${_commit}"
 #source=("https://github.com/ggml-org/whisper.cpp/archive/v${pkgver}/${_realname}-${pkgver}.tar.gz"
         "whisper.pc.in.patch")
-sha256sums=('dc0a4473b16fa9c9c2a7e4e27b418fc866b77a719c72f144f555b38b98b1d343'
+sha256sums=('829626aadec322696087c098fefcc355f8bb0b26c5ec4c2f3d4e940db8c5d2f8'
             '96efa2431d71114f5928ab04c6d048a8814f5dd54713914e8e98adcac25ac844')
 
 pkgver() {
