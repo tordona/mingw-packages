@@ -64,7 +64,9 @@ package() {
   meson install -C "build-${MSYSTEM}-shared" --destdir "${pkgdir}"
 
   local _libdir="$(cygpath -m "${MINGW_PREFIX}/lib")"
-  sed -i "s|${_libdir}|\${libdir}|g" "${pkgdir}${MINGW_PREFIX}/lib/pkgconfig/librist.pc"
+  sed -i "s|${_libdir}/lib|\-l|g" "${pkgdir}${MINGW_PREFIX}/lib/pkgconfig/librist.pc"
+  sed -i "s|\.a||g" "${pkgdir}${MINGW_PREFIX}/lib/pkgconfig/librist.pc"
+  sed -i "s|\.dll||g" "${pkgdir}${MINGW_PREFIX}/lib/pkgconfig/librist.pc"
 
   install -Dm644 "${srcdir}/${_realname}-v${pkgver}/COPYING" \
     "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/COPYING"
