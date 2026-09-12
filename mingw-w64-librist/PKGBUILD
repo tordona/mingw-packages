@@ -1,0 +1,71 @@
+# Maintainer: Biswapriyo Nath <nathbappai@gmail.com>
+
+_realname=librist
+pkgbase=mingw-w64-${_realname}
+pkgname=("${MINGW_PACKAGE_PREFIX}-${_realname}")
+pkgver=0.2.20
+pkgrel=2
+pkgdesc='A library that can be used to add the RIST protocol to applications (mingw-w64)'
+arch=('any')
+mingw_arch=('ucrt64' 'clang64' 'clangarm64')
+url='https://code.videolan.org/rist/librist/'
+msys2_repository_url='https://code.videolan.org/rist/librist'
+license=('spdx:BSD-2-Clause')
+depends=(
+  "${MINGW_PACKAGE_PREFIX}-cjson"
+  "${MINGW_PACKAGE_PREFIX}-libwinpthread"
+  "${MINGW_PACKAGE_PREFIX}-lz4"
+  "${MINGW_PACKAGE_PREFIX}-mbedtls"
+)
+makedepends=(
+  "${MINGW_PACKAGE_PREFIX}-cc"
+  "${MINGW_PACKAGE_PREFIX}-cmake"
+  "${MINGW_PACKAGE_PREFIX}-cmocka"
+  "${MINGW_PACKAGE_PREFIX}-meson"
+  "${MINGW_PACKAGE_PREFIX}-ninja"
+  "${MINGW_PACKAGE_PREFIX}-pkgconf"
+  "${MINGW_PACKAGE_PREFIX}-winpthreads"
+)
+source=("https://code.videolan.org/rist/librist/-/archive/v${pkgver}/${_realname}-v${pkgver}.tar.bz2")
+sha256sums=('20a5cdce88ccaeab11cd8860c82c565472f21572705d9a476265c5148bf4aeb1')
+
+build() {
+  MSYS2_ARG_CONV_EXCL="--prefix=" \
+    meson setup \
+      --prefix="${MINGW_PREFIX}" \
+      --wrap-mode=nodownload \
+      --auto-features=enabled \
+      --buildtype=plain \
+      --default-library=static \
+      -Dhave_mingw_pthreads=true \
+      "build-${MSYSTEM}-static" \
+      "${_realname}-v${pkgver}"
+
+  meson compile -C "build-${MSYSTEM}-static"
+
+  # shared build defines LIBRIST_BUILDING_DLL macro
+  LDFLAGS+=" -pthread" \
+  MSYS2_ARG_CONV_EXCL="--prefix=" \
+    meson setup \
+      --prefix="${MINGW_PREFIX}" \
+      --wrap-mode=nodownload \
+      --auto-features=enabled \
+      --buildtype=plain \
+      --default-library=shared \
+      -Dhave_mingw_pthreads=true \
+      "build-${MSYSTEM}-shared" \
+      "${_realname}-v${pkgver}"
+
+  meson compile -C "build-${MSYSTEM}-shared"
+}
+
+package() {
+  meson install -C "build-${MSYSTEM}-static" --destdir "${pkgdir}"
+  meson install -C "build-${MSYSTEM}-shared" --destdir "${pkgdir}"
+
+  local _libdir="$(cygpath -m "${MINGW_PREFIX}/lib")"
+  sed -i "s|${_libdir}|\${libdir}|g" "${pkgdir}${MINGW_PREFIX}/lib/pkgconfig/librist.pc"
+
+  install -Dm644 "${srcdir}/${_realname}-v${pkgver}/COPYING" \
+    "${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/COPYING"
+}
