@@ -9,7 +9,7 @@ pkgname=("${MINGW_PACKAGE_PREFIX}-${_realname}"
            "${MINGW_PACKAGE_PREFIX}-${_realname}-icu" \
            "${MINGW_PACKAGE_PREFIX}-${_realname}-utils" \
            "${MINGW_PACKAGE_PREFIX}-${_realname}-docs"))
-pkgver=14.4.0
+pkgver=14.5.0
 pkgrel=1
 pkgdesc="OpenType text shaping engine"
 arch=('any')
@@ -51,7 +51,7 @@ source=("https://github.com/harfbuzz/harfbuzz/releases/download/${pkgver}/harfbu
         "001-fix-build-with-chafa.patch"
         "002-make-library-type-in-cmake-config-unknown.patch"
         "harfbuzz.pc.patch")
-sha256sums=('2357ed966c6ced7bfa720b0640c0231065af01158fbea215093ffa15aed44371'
+sha256sums=('b7132e148358a45185c9feafd049dbaf243649d3c44414b3534d9c95d18592b9'
             '26b37a1ca9872973905ecb96bcbe3f054472252320956faa74428206900d360e'
             '189dc3cb2f9a0fd07d6499cee3307985f68e6b9d28d581d15c365b33f2012552'
             '47f51854e6f70b56dad94980bd22db9a6d592f4932f5d897f39f0d4c54b98d39')
