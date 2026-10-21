@@ -20,10 +20,11 @@ makedepends=(
   "${MINGW_PACKAGE_PREFIX}-cmake"
   "${MINGW_PACKAGE_PREFIX}-ninja"
 )
+https://github.com/xqq/libaribcaption/archive/v1.1.2/libaribcaption-1.1.2.tar.gz
 source=("https://github.com/xqq/libaribcaption/archive/v${pkgver}/${_realname}-${pkgver}.tar.gz"
         "libaribcaption.pc.in.patch")
 sha256sums=('649b50bde99272b97c66af2a8400163e2f84eae072d252daa26baaaf0866a1c2'
-            '35dfd17541715b68e51052b903c4859d7716676f21581f89e7331be1bf7cada2')
+            'fe90d2c2f152ac6e3e8223d8ededade25a3a90e6cc5a5a6655301fa05523138f')
 options=('libtool' 'staticlibs')
 
 prepare() {

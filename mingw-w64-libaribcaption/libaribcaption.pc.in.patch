@@ -1,5 +1,5 @@
---- libaribcaption-1.1.1/libaribcaption.pc.in		2023-09-29 11:39:35.000000000 -0400
-+++ libaribcaption-1.1.1/libaribcaption.pc.in.mod	2025-10-11 16:10:56.425580500 -0400
+--- libaribcaption-1.1.2/libaribcaption.pc.in		2023-09-29 11:39:35.000000000 -0400
++++ libaribcaption-1.1.2/libaribcaption.pc.in.mod	2025-10-11 16:10:56.425580500 -0400
 @@ -11,4 +11,4 @@
  Requires.private:
  Cflags: -I${includedir}
