@@ -67,4 +67,5 @@ build() {
 package() {
   cd "${srcdir}/build-${MSYSTEM}"
   make DESTDIR="${pkgdir}" install
+  sed -e "s|-lmp3lame|-lmp3lame -lmpg123 -lshlwapi|g" -i "${pkgdir}"${MINGW_PREFIX}/lib/pkgconfig/lame.pc
 }
