@@ -1,0 +1,70 @@
+# Maintainer: Alexey Pavlov <alexpux@gmail.com>
+
+_realname=lame
+pkgbase=mingw-w64-${_realname}
+pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}"
+pkgver=4.0
+pkgrel=1
+pkgdesc="A high quality MPEG Audio Layer III (MP3) encoder (mingw-w64)"
+arch=('any')
+mingw_arch=('mingw32' 'mingw64' 'ucrt64' 'clang64' 'clangarm64')
+url="https://lame.sourceforge.io/"
+msys2_references=(
+  "cpe: cpe:/a:lame_project:lame"
+)
+license=("LGPL")
+makedepends=("${MINGW_PACKAGE_PREFIX}-cc"
+             "${MINGW_PACKAGE_PREFIX}-ncurses"
+             "${MINGW_PACKAGE_PREFIX}-autotools"
+              $( [[ "${CARCH}" != "i686" \
+                && "${CARCH}" != "x86_64" ]] \
+                || echo "${MINGW_PACKAGE_PREFIX}-nasm" ))
+depends=("${MINGW_PACKAGE_PREFIX}-libiconv"
+         "${MINGW_PACKAGE_PREFIX}-mpg123")
+source=("https://downloads.sourceforge.net/${_realname}/${_realname}-${pkgver}.tar.gz"
+        0002-07-field-width-fix.all.patch
+        0005-no-gtk.all.patch
+        0006-dont-use-outdated-symbol-list.patch
+        0008-skip-termcap.patch
+        0010-frontend-utf8-id3v2-setters.patch)
+sha256sums=('3df5124d5ad3a98312ffd7ba6a9b36230e4f8a3e66d3ce0f425e336c32d216eb'
+            'd3ba595816761706d1e5dcf432f0b3ad8c9c6b37584032e21bf24c89e4fd0fc8'
+            '55f7fb63fd6a4e738f4d449d212ac928a522135e608c28449b86510fd33c0834'
+            '723fcb34c969dd5052b44d6586236c262b9340c423ed75b1fc5104fb0e207434'
+            '8fddeebd0ccdec62ede2932ce3bbe767af6ed6f06018f7f13113401d4ce06179'
+            '2885e151385022ed144bf6ebf25f8af46589c6a2bdb777bb983227eba0ace4c6')
+
+prepare() {
+  cd "${srcdir}/${_realname}-${pkgver}"
+
+  patch -p1 -i "${srcdir}"/0002-07-field-width-fix.all.patch
+  patch -p1 -i "${srcdir}"/0005-no-gtk.all.patch
+  patch -p1 -i "${srcdir}"/0006-dont-use-outdated-symbol-list.patch
+  # tgetent() crashes under mingw64, not sure why
+  patch -p1 -i "${srcdir}"/0008-skip-termcap.patch
+  # GCC 14+ rejects 4.0's UTF-8 ID3v2 path in the frontend
+  patch -p1 -i "${srcdir}"/0010-frontend-utf8-id3v2-setters.patch
+
+  autoreconf -fi
+}
+
+build() {
+  mkdir -p "${srcdir}/build-${MSYSTEM}" && cd "${srcdir}/build-${MSYSTEM}"
+
+  ../${_realname}-${pkgver}/configure \
+    --prefix=${MINGW_PREFIX} \
+    --build=${MINGW_CHOST} \
+    --host=${MINGW_CHOST} \
+    --target=${MINGW_CHOST} \
+    --enable-shared \
+    --enable-static \
+    $( [[ "${CARCH}" != "i686" \
+      && "${CARCH}" != "x86_64" ]] \
+      || echo "--enable-nasm")
+  make
+}
+
+package() {
+  cd "${srcdir}/build-${MSYSTEM}"
+  make DESTDIR="${pkgdir}" install
+}

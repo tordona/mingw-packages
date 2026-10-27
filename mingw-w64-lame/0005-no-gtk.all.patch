@@ -1,0 +1,13 @@
+diff --git a/configure.ac b/configure.ac
+index db3feb7..706a6e3 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -477,7 +477,7 @@ CONFIG_MATH_LIB="${USE_LIBM}"
+ 
+ dnl configure use of features
+ 
+-AM_PATH_GTK(1.2.0, HAVE_GTK="yes", HAVE_GTK="no")
++AC_SUBST(GTK_CFLAGS,[])
+ 
+ dnl ElectricFence malloc debugging
+ AC_MSG_CHECKING(use of ElectricFence malloc debugging)

@@ -1,0 +1,12 @@
+diff --git a/libmp3lame/Makefile.am b/libmp3lame/Makefile.am
+index 3581f4e..a9bca38 100644
+--- a/libmp3lame/Makefile.am
++++ b/libmp3lame/Makefile.am
+@@ -22,7 +22,6 @@ endif
+ libmp3lame_la_LIBADD =	$(cpu_ldadd) $(vector_ldadd) $(decoder_ldadd) \
+ 			@LIBMP3LAME_LDADD@ $(CONFIG_MATH_LIB)
+ libmp3lame_la_LDFLAGS = -version-info @LIB_MAJOR_VERSION@:@LIB_MINOR_VERSION@ \
+-			-export-symbols $(top_srcdir)/include/libmp3lame.sym \
+ 			-no-undefined
+ 
+ INCLUDES = @INCLUDES@ -I$(top_srcdir) -I$(top_builddir)
