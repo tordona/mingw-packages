@@ -1,7 +1,7 @@
 _realname=avisynthplus
 pkgbase=mingw-w64-${_realname}
 pkgname=("${MINGW_PACKAGE_PREFIX}-${_realname}")
-pkgver=3.7.5
+pkgver=3.7.6
 pkgrel=1
 pkgdesc="AviSynth+ An improved version of the AviSynth frameserver"
 arch=('any')
