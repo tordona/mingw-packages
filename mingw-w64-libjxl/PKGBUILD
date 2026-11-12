@@ -1,10 +1,10 @@
 # Maintainer: Biswapriyo Nath <nathbappai@gmail.com>
 # Contributor: Miloš Komarčević <miloskomarcevic@aim.com>
-
+#
 _realname=libjxl
 pkgbase=mingw-w64-${_realname}
 pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}"
-pkgver=0.12.0
+pkgver=0.13.0
 pkgrel=1
 pkgdesc='JPEG XL image format reference implementation (mingw-w64)'
 arch=('any')
@@ -34,14 +34,14 @@ optdepends=("${MINGW_PACKAGE_PREFIX}-gdk-pixbuf2: for gdk-pixbuf loader")
 source=("https://github.com/libjxl/libjxl/archive/v${pkgver}/${_realname}-${pkgver}.tar.gz"
         "libjxl.pc.in.patch"
         "libjxl_threads.pc.in.patch")
-sha256sums=('03e9be69a30be4011f559da75328b6d7cea8ad921fabfbd551ce10bf45cdc992'
+sha256sums=('24d18c9af2d1f5a17730b3f8d3f70a5c16e5ac303f5d9d5fe9dc00cf7ca82af2'
             '1d2fa7826d13ee3ffa6648b5b00b23a1d603b597a7b1bd1ecfbc38fb6460e932'
-            '4eb5473eb1c7b9781dd1fcd8ae5083dc596fc10dbc1b4d9f7139fd5a3bdc1f1b')
+            '7c4c6a8f007c0bb7d3bfa2f9d3d64f35e67a8202cf9460ef4d2eb3789d6a3b08')
 noextract=("${_realname}-${pkgver}.tar.gz")
 options=('libtool' 'staticlibs')
 
 prepare() {
-  tar -xzf "${_realname}-${pkgver}.tar.gz" || true
+  MSYS=winsymlinks:lnk tar -xzf "${_realname}-${pkgver}.tar.gz" || true
  
   sed -i "s/@PACKAGE@/${_realname}-${pkgver}/g" "libjxl.pc.in.patch"
   sed -i "s/@PACKAGE@/${_realname}-${pkgver}/g" "libjxl_threads.pc.in.patch"

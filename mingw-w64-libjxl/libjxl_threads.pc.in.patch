@@ -4,7 +4,7 @@
  Version: @JPEGXL_LIBRARY_VERSION@
  @JPEGXL_REQUIRES_TYPE@: @JPEGXL_THREADS_LIBRARY_REQUIRES@
  Libs: -L${libdir} -ljxl_threads
--Libs.private: -lm
-+Libs.private: -lm -lstdc++ -ladvapi32
+-Libs.private: @PKGCONFIG_MATH_LIB@
++Libs.private: @PKGCONFIG_MATH_LIB@ -lstdc++ -ladvapi32
  Cflags: -I${includedir}
  Cflags.private: -DJXL_THREADS_STATIC_DEFINE
