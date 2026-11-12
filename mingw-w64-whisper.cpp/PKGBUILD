@@ -4,12 +4,17 @@ _realname=whisper.cpp
 pkgbase=mingw-w64-${_realname}
 pkgname=("${MINGW_PACKAGE_PREFIX}-${_realname}")
 epoch=1
-pkgver=1.9.5.r2.g0c7be6963
+pkgver=1.9.5.r258.g4da27c41c
 pkgrel=1
 pkgdesc="Port of OpenAI's Whisper model in C/C++ (mingw-w64)"
 arch=('any')
 mingw_arch=('ucrt64' 'clang64' 'clangarm64' 'mingw64')
 url='https://github.com/ggml-org/whisper.cpp'
+msys2_repository_url='https://github.com/ggml-org/whisper.cpp'
+msys2_references=(
+  'anitya: 372280'
+  'archlinux: whisper-cpp'
+)
 license=('spdx:MIT')
 depends=(
   "${MINGW_PACKAGE_PREFIX}-cc-libs"
@@ -26,11 +31,11 @@ makedepends=(
   "${MINGW_PACKAGE_PREFIX}-spirv-headers"
   #"git"
 )
-_commit=0c7be696371069e0baa2515ed7aa08d5a5473aa6
+_commit=4da27c41cebadb3cbbcd2563e9c7cbc8d84bdcad
 source=("git+https://github.com/ggml-org/whisper.cpp#commit=${_commit}"
 #source=("https://github.com/ggml-org/whisper.cpp/archive/v${pkgver}/${_realname}-${pkgver}.tar.gz"
         "whisper.pc.in.patch")
-sha256sums=('8e4af68883ac498d674a749931ef6756422e661be125771df6cf1c248e61df48'
+sha256sums=('716b431231d939110af7e0cec83c488766d9b359921fa74df365662623c7131e'
             'b5fbe2062f1ff53d0f6c504039fa7f7aa2caa7cdedde956e2e2f2a2559f965ab')
 
 pkgver() {
@@ -79,7 +84,7 @@ build() {
 
   LDFLAGS+=" -Wl,--export-all-symbols" \
   MSYS2_ARG_CONV_EXCL="-DCMAKE_INSTALL_PREFIX=" \
-    cmake \
+    cmake -Wno-author \
       "${common_config[@]}" \
       -DBUILD_SHARED_LIBS=ON \
       ../${_realname}-${pkgver}
@@ -90,7 +95,7 @@ build() {
 
   LDFLAGS+=" -Wl,--export-all-symbols" \
   MSYS2_ARG_CONV_EXCL="-DCMAKE_INSTALL_PREFIX=" \
-    cmake \
+    cmake -Wno-author \
       "${common_config[@]}" \
       -DBUILD_SHARED_LIBS=OFF \
       ../${_realname}-${pkgver}
