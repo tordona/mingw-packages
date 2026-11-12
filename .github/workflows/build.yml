@@ -57,19 +57,19 @@ jobs:
     with:
       environment: 'base-packages'
       project: ${{ matrix.project }}
-  cleanup-logs:
-    if: ${{ github.ref_name != 'master' }}
-    name: '🧹 Clean Up Deployment Log'
-    runs-on: ubuntu-latest
-    needs: [build-packages]
-    permissions: write-all
-    steps:
-      - name: '🗑 Delete Deployment'
-        uses: strumwolf/delete-deployment-environment@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          environment: 'base-packages'
-          onlyRemoveDeployments: true
+  # cleanup-logs:
+  #   if: ${{ github.ref_name != 'master' }}
+  #   name: '🧹 Clean Up Deployment Log'
+  #   runs-on: ubuntu-latest
+  #   needs: [build-packages]
+  #   permissions: write-all
+  #   steps:
+  #     - name: '🗑 Delete Deployment'
+  #       uses: strumwolf/delete-deployment-environment@v2
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         environment: 'base-packages'
+  #         onlyRemoveDeployments: true
   release-separate-packages:
     name: '🚚 Release Separate Packages'
     needs: [detect-directory-changes, build-packages]
