@@ -59,7 +59,7 @@ noextract=("${_realname}-${pkgver}.tar.xz")
 sha256sums=('0fc7c565443a5f4be7da65ac5ee5bd737d9b158dc908708b7689a0a5796b0c8d'
             '26b37a1ca9872973905ecb96bcbe3f054472252320956faa74428206900d360e'
             '189dc3cb2f9a0fd07d6499cee3307985f68e6b9d28d581d15c365b33f2012552'
-            '47f51854e6f70b56dad94980bd22db9a6d592f4932f5d897f39f0d4c54b98d39')
+            '300f7c586c4710b65ba76ad4875ae0627ec206cba5cc9508d11ed538b31b89d3')
 
 prepare() {
   echo "Extracting ${_realname}-${pkgver}.tar.xz..."
@@ -155,13 +155,14 @@ check() {
 }
 
 package_harfbuzz() {
+  sed -i "s/@PKG_VERSION@/${pkgver}/g" "harfbuzz.pc.patch"
   patch -Np0 -l -i "${srcdir}"/harfbuzz.pc.patch
 
   pkgdesc+=" (mingw-w64)"
 
-  meson install -C "build-${MSYSTEM}-static" --destdir "${pkgdir}"
-
   meson install -C "build-${MSYSTEM}-shared" --destdir "${pkgdir}"
+
+  meson install -C "build-${MSYSTEM}-static" --destdir "${pkgdir}"
 
   if [[ ${CARCH} != i686 ]]; then
 

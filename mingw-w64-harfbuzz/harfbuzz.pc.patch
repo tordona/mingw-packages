@@ -1,7 +1,7 @@
 --- build-CLANGARM64-static/meson-private/harfbuzz.pc	2025-10-13 15:03:45 -0400
 +++ build-CLANGARM64-static/meson-private/harfbuzz.pc.mod	2025-10-13 15:54:00 -0400
 @@ -7,4 +7,5 @@
- Version: 12.1.0
+ Version: @PKG_VERSION@
  Requires: freetype2 >=  12.0.6, glib-2.0 >=  2.30.0, graphite2 >=  1.2.0
  Libs: -L${libdir} -lharfbuzz -lm -lusp10 -lgdi32 -lrpcrt4 -luser32 -ldwrite
 +Libs.private: -lstdc++
